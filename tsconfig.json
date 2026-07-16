@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "strict": false,
+    "allowJs": true,
+    "checkJs": false
+  },
+  "extends": "expo/tsconfig.base",
+  "exclude": ["node_modules", "backend", "babel.config.js"]
+}

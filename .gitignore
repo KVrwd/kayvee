@@ -1,0 +1,25 @@
+node_modules/
+.expo/
+dist/
+web-build/
+*.log
+npm-debug.*
+.DS_Store
+*.jks
+*.p8
+*.p12
+*.key
+*.mobileprovision
+*.orig.*
+
+# Secrets - never commit real values
+.env
+.env.*
+!.env.example
+backend/**/.env.local
+
+# EAS / native build output
+*.apk
+*.aab
+android/
+ios/

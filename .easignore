@@ -1,0 +1,15 @@
+# Ignore everything
+**/*
+
+# Explicitly whitelist the files we need (NO node_modules!)
+!App.js
+!app.json
+!package.json
+!babel.config.js
+!assets/**
+!components/**
+!context/**
+!services/**
+!theme/**
+!screens/**
+!supabase/**

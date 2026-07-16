@@ -1,0 +1,39 @@
+{
+  "expo": {
+    "name": "KayVee",
+    "slug": "kayvee",
+    "version": "1.0.0",
+    "orientation": "default",
+    "icon": "./assets/icon.png",
+    "scheme": "kayvee",
+    "userInterfaceStyle": "automatic",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#000000"
+    },
+    "assetBundlePatterns": ["**/*"],
+    "ios": {
+      "bundleIdentifier": "com.kayvee.app",
+      "supportsTablet": true
+    },
+    "android": {
+      "package": "com.kayvee.app",
+      "edgeToEdgeEnabled": true,
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#000000"
+      }
+    },
+    "plugins": [
+      [
+        "expo-secure-store"
+      ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "9fba4a8f-3c64-4071-be0a-f8889071c349"
+      }
+    }
+  }
+}
