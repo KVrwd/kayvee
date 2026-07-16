@@ -15,10 +15,11 @@ export default function ConnectDerivScreen() {
   const [connecting, setConnecting] = useState(false);
   const [error, setError] = useState('');
 
-  // OAuth Trigger - Updated with exact Redirect URI from Dashboard
+  // OAuth Trigger - Pulling securely from .env
   const handleLoginWithDeriv = async () => {
-    const bridgeUrl = 'https://kvrwd.github.io/deriv-oauth-bridge/';
-    const oauthUrl = `https://oauth.deriv.com/oauth2/authorize?app_id=1089&brand=deriv&language=en&redirect_uri=${encodeURIComponent(bridgeUrl)}`;
+    const bridgeUrl = process.env.EXPO_PUBLIC_DERIV_REDIRECT_URI;
+    const appId = process.env.EXPO_PUBLIC_DERIV_APP_ID;
+    const oauthUrl = `https://oauth.deriv.com/oauth2/authorize?app_id=${appId}&brand=deriv&language=en&redirect_uri=${encodeURIComponent(bridgeUrl)}`;
     await Linking.openURL(oauthUrl);
   };
 
