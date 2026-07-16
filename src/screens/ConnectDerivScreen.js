@@ -15,10 +15,10 @@ export default function ConnectDerivScreen() {
   const [connecting, setConnecting] = useState(false);
   const [error, setError] = useState('');
 
-  // OAuth Trigger - Pulling securely from .env
+  // OAuth Trigger - Unified ID and dynamic Redirect URI
   const handleLoginWithDeriv = async () => {
     const bridgeUrl = process.env.EXPO_PUBLIC_DERIV_REDIRECT_URI;
-    const appId = process.env.EXPO_PUBLIC_DERIV_APP_ID;
+    const appId = process.env.EXPO_PUBLIC_DERIV_APP_ID; 
     const oauthUrl = `https://oauth.deriv.com/oauth2/authorize?app_id=${appId}&brand=deriv&language=en&redirect_uri=${encodeURIComponent(bridgeUrl)}`;
     await Linking.openURL(oauthUrl);
   };
@@ -66,7 +66,7 @@ export default function ConnectDerivScreen() {
       <View style={styles.wrap}>
         <Text style={[typography.h2, { color: theme.textPrimary }]}>Connect your Deriv account</Text>
         <Text style={[typography.body, { color: theme.textSecondary, marginTop: 8, marginBottom: 6 }]}>
-          You can use the button below to link securely, or paste an API token.
+          Use the button below to link securely.
         </Text>
 
         <Pressable 
@@ -137,7 +137,7 @@ function waitForOpen(socket, timeoutMs = 8000) {
         settled = true;
         clearTimeout(timer);
         unsub();
-        resolve();
+        resolve(); // Typo removed here
       } else if (status === 'error') {
         settled = true;
         clearTimeout(timer);

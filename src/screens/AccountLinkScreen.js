@@ -15,10 +15,11 @@ export default function AccountLinkScreen({ navigation }) {
   const [connecting, setConnecting] = useState(false);
   const [error, setError] = useState('');
 
-  // OAuth Trigger - Pulling securely from .env
+  // OAuth Trigger - Pulling the unified modern App ID from .env
   const handleLoginWithDeriv = async () => {
     const bridgeUrl = process.env.EXPO_PUBLIC_DERIV_REDIRECT_URI;
     const appId = process.env.EXPO_PUBLIC_DERIV_APP_ID;
+    
     const oauthUrl = `https://oauth.deriv.com/oauth2/authorize?app_id=${appId}&brand=deriv&language=en&redirect_uri=${encodeURIComponent(bridgeUrl)}`;
     await Linking.openURL(oauthUrl);
   };

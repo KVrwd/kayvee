@@ -13,8 +13,9 @@
       "env": {
         "EXPO_PUBLIC_SUPABASE_URL": "https://yinahmyovgdzxvptvzhe.supabase.co",
         "EXPO_PUBLIC_SUPABASE_ANON_KEY": "sb_publishable_JO6bo-Mx8OGomWrtNHJWEw_IxbCwipj",
-        "EXPO_PUBLIC_DERIV_APP_ID": "1089",
+        "EXPO_PUBLIC_DERIV_APP_ID": "33QruGIZVCCOKpsEep2zF",
         "EXPO_PUBLIC_DERIV_WS_URL": "wss://ws.derivws.com/websockets/v3",
+        "EXPO_PUBLIC_DERIV_REDIRECT_URI": "https://kvrwd.github.io/deriv-oauth-bridge/",
         "EXPO_PUBLIC_ADMIN_EMAIL": "kingvic7412@gmail.com",
         "EXPO_PUBLIC_DEFAULT_GATE_CODE": "321456V",
         "EXPO_PUBLIC_DEFAULT_ADMIN_GATE_CODE": "123654V"
@@ -28,27 +29,13 @@
       "env": {
         "EXPO_PUBLIC_SUPABASE_URL": "https://yinahmyovgdzxvptvzhe.supabase.co",
         "EXPO_PUBLIC_SUPABASE_ANON_KEY": "sb_publishable_JO6bo-Mx8OGomWrtNHJWEw_IxbCwipj",
-        "EXPO_PUBLIC_DERIV_APP_ID": "1089",
+        "EXPO_PUBLIC_DERIV_APP_ID": "33QruGIZVCCOKpsEep2zF",
         "EXPO_PUBLIC_DERIV_WS_URL": "wss://ws.derivws.com/websockets/v3",
-        "EXPO_PUBLIC_ADMIN_EMAIL": "kingvic7412@gmail.com",
-        "EXPO_PUBLIC_DEFAULT_GATE_CODE": "321456V",
-        "EXPO_PUBLIC_DEFAULT_ADMIN_GATE_CODE": "123654V"
-      }
-    },
-    "production": {
-      "autoIncrement": true,
-      "env": {
-        "EXPO_PUBLIC_SUPABASE_URL": "https://yinahmyovgdzxvptvzhe.supabase.co",
-        "EXPO_PUBLIC_SUPABASE_ANON_KEY": "sb_publishable_JO6bo-Mx8OGomWrtNHJWEw_IxbCwipj",
-        "EXPO_PUBLIC_DERIV_APP_ID": "1089",
-        "EXPO_PUBLIC_DERIV_WS_URL": "wss://ws.derivws.com/websockets/v3",
+        "EXPO_PUBLIC_DERIV_REDIRECT_URI": "https://kvrwd.github.io/deriv-oauth-bridge/",
         "EXPO_PUBLIC_ADMIN_EMAIL": "kingvic7412@gmail.com",
         "EXPO_PUBLIC_DEFAULT_GATE_CODE": "321456V",
         "EXPO_PUBLIC_DEFAULT_ADMIN_GATE_CODE": "123654V"
       }
     }
-  },
-  "submit": {
-    "production": {}
   }
 }
