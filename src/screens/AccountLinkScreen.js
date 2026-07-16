@@ -15,10 +15,9 @@ export default function AccountLinkScreen({ navigation }) {
   const [connecting, setConnecting] = useState(false);
   const [error, setError] = useState('');
 
-  // OAuth Trigger - Updated with Redirect URI
+  // OAuth Trigger - Updated with exact Redirect URI from Dashboard
   const handleLoginWithDeriv = async () => {
-    // REPLACE THIS WITH YOUR PERMANENT BRIDGE URL (e.g., https://username.github.io/deriv-auth-bridge/)
-    const bridgeUrl = 'https://YOUR_BRIDGE_URL_HERE/';
+    const bridgeUrl = 'https://kvrwd.github.io/deriv-oauth-bridge/';
     const oauthUrl = `https://oauth.deriv.com/oauth2/authorize?app_id=1089&brand=deriv&language=en&redirect_uri=${encodeURIComponent(bridgeUrl)}`;
     await Linking.openURL(oauthUrl);
   };
