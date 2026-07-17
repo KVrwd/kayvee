@@ -1,4 +1,4 @@
-// MUST be the very first import
+v// MUST be the very first import
 import 'react-native-gesture-handler';
 import 'react-native-url-polyfill/auto';
 
@@ -10,25 +10,38 @@ import * as Linking from 'expo-linking';
 import * as SecureStore from 'expo-secure-store';
 
 import { ThemeProvider, useTheme } from './src/context/ThemeContext';
-import { SessionProvider } from './src/context/SessionContext';
+import { SessionProvider, useSession } from './src/context/SessionContext';
 import AppNavigator from './src/navigation/AppNavigator';
-import { derivSocket } from './src/services/derivSocket'; // Make sure this path is correct
+import { derivSocket } from './src/services/derivSocket';
 
 // This component listens for the "kayvee://" redirect from the browser
 function DeepLinkHandler() {
+  const { addDerivAccount } = useSession();
+
   useEffect(() => {
     const handleDeepLink = async (event) => {
       const data = Linking.parse(event.url);
+      
+      // Extract parameters from the Deriv redirect URL
       const token = data.queryParams?.token1;
+      const accountId = data.queryParams?.acct1;
+      const currency = data.queryParams?.cur1 || 'USD';
 
-      if (token) {
+      if (token && accountId) {
         console.log('OAuth token received, authorizing...');
         try {
           // 1. Authorize with the socket
           await derivSocket.authorize(token);
-          // 2. Save the token securely
-          await SecureStore.setItemAsync('kv_deriv_token', token);
-          // Note: AppNavigator will detect the session change and update UI automatically
+          
+          // 2. Add the account to context (this triggers the AppNavigator switch)
+          await addDerivAccount({ 
+            id: accountId, 
+            token: token, 
+            currency: currency 
+          });
+          
+          // 3. Optional: Store token specifically if needed by your services
+          await SecureStore.setItemAsync(`kv_deriv_token_${accountId}`, token);
         } catch (e) {
           console.error('OAuth authorization failed', e);
         }
@@ -37,7 +50,7 @@ function DeepLinkHandler() {
 
     const subscription = Linking.addEventListener('url', handleDeepLink);
     return () => subscription.remove();
-  }, []);
+  }, [addDerivAccount]);
 
   return null;
 }
@@ -53,7 +66,7 @@ export default function App() {
       <SafeAreaProvider>
         <ThemeProvider>
           <SessionProvider>
-            {/* The listener must be inside the Providers to function correctly */}
+            {/* The listener must be inside the Providers to access useSession */}
             <DeepLinkHandler />
             <ThemedStatusBar />
             <AppNavigator />

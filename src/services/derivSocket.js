@@ -23,6 +23,8 @@ export class DerivSocket {
     this.shouldReconnect = true;
     this.authToken = null;
     this.status = 'idle';
+    // Initialize with primary ID so UI has a fallback before connection completes
+    this.activeAppId = ENV.DERIV_APP_ID; 
   }
 
   logout() {
@@ -43,7 +45,7 @@ export class DerivSocket {
     });
   }
 
-  connect() {
+  connect(useFallback = false) {
     if (this.ws && (this.ws.readyState === WebSocket.OPEN || this.ws.readyState === WebSocket.CONNECTING)) return;
     
     // SAFETY CHECK: Verify environment variables exist before connecting
@@ -57,8 +59,11 @@ export class DerivSocket {
     this.shouldReconnect = true;
     this._emitStatus('connecting');
 
-    const url = `${ENV.DERIV_WS_URL}?app_id=${ENV.DERIV_APP_ID}`;
-    console.log("DEBUG: Attempting connection to URL:", url);
+    // Dynamically update the active App ID based on fallback status
+    this.activeAppId = useFallback ? ENV.DERIV_FALLBACK_APP_ID : ENV.DERIV_APP_ID;
+
+    const url = `${ENV.DERIV_WS_URL}?app_id=${this.activeAppId}`;
+    console.log(`DEBUG: Attempting connection to URL: ${url} (Fallback: ${useFallback})`);
 
     const ws = new WebSocket(url);
     this.ws = ws;
@@ -82,7 +87,13 @@ export class DerivSocket {
 
     ws.onerror = (e) => {
       console.log("WebSocket Error:", e.message || "Connection failed. Check App ID/URL.");
-      this._emitStatus('error');
+      // If primary failed, try fallback
+      if (!useFallback) {
+        console.log("Primary App ID failed. Switching to fallback...");
+        this.connect(true);
+      } else {
+        this._emitStatus('error');
+      }
     };
 
     ws.onclose = (e) => {

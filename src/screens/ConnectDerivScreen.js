@@ -4,7 +4,7 @@ import { useTheme } from '../context/ThemeContext';
 import { useSession } from '../context/SessionContext';
 import { typography } from '../theme/typography';
 import ScreenContainer from '../components/ScreenContainer';
-import { derivSocket } from '../services/derivSocket';
+import { derivSocket } from '../services/derivSocket'; // Make sure this path is correct
 import * as SecureStore from 'expo-secure-store';
 
 export default function ConnectDerivScreen() {
@@ -15,10 +15,11 @@ export default function ConnectDerivScreen() {
   const [connecting, setConnecting] = useState(false);
   const [error, setError] = useState('');
 
-  // OAuth Trigger - Unified ID and dynamic Redirect URI
+  // OAuth Trigger - This pulls the active ID directly from the socket instance
   const handleLoginWithDeriv = async () => {
-    const bridgeUrl = process.env.EXPO_PUBLIC_DERIV_REDIRECT_URI;
-    const appId = process.env.EXPO_PUBLIC_DERIV_APP_ID; 
+    const bridgeUrl = process.env.EXPO_PUBLIC_DERIV_REDIRECT_URI ?? 'https://kvrwd.github.io/deriv-oauth-bridge/';
+    const appId = derivSocket.activeAppId; // Dynamic ID from the socket
+    
     const oauthUrl = `https://oauth.deriv.com/oauth2/authorize?app_id=${appId}&brand=deriv&language=en&redirect_uri=${encodeURIComponent(bridgeUrl)}`;
     await Linking.openURL(oauthUrl);
   };
@@ -137,7 +138,7 @@ function waitForOpen(socket, timeoutMs = 8000) {
         settled = true;
         clearTimeout(timer);
         unsub();
-        resolve(); // Typo removed here
+        resolve(); 
       } else if (status === 'error') {
         settled = true;
         clearTimeout(timer);
